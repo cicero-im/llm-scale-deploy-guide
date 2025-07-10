@@ -1,5 +1,5 @@
-import random
 from locust import HttpUser, task, between
+import secrets
 
 class LLMUser(HttpUser):
     wait_time = between(1, 3)
@@ -14,7 +14,7 @@ class LLMUser(HttpUser):
 
     @task
     def generate(self):
-        prompt = random.choice(self.sample_prompts)
+        prompt = secrets.choice(self.sample_prompts)
         payload = {
             "prompt": prompt,
             "max_new_tokens": 75
